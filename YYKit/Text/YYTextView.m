@@ -2547,7 +2547,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
         BOOL showMagnifierRanged = NO;
         
         if (_highlight) {
-            
+            _state.showingHighlight = NO;
 //            YYTextHighlight *highlight = [self _getHighlightAtPoint:_trackingPoint range:NULL];
 //            if (highlight == _highlight) {
 //                [self _showHighlightAnimated:YES];
@@ -2703,7 +2703,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
                 [self _updateOuterProperties];
             }
             if (!_state.trackingGrabber && !_state.trackingPreSelect) {
-                [self _scrollRangeToVisible:_selectedTextRange];
+//                [self _scrollRangeToVisible:_selectedTextRange];
             }
         }
         
