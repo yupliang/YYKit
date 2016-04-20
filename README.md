@@ -186,4 +186,4 @@ YYKit 使用 MIT 许可证，详情见 LICENSE 文件。
 
 修改内容
 =============
-该版本主要是删减了yytextview以适应项目需求。
+该版本主要是删减了yytextview以适应项目需求。包括取消YYTextview选中空行，取消显示高亮
