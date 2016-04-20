@@ -3101,6 +3101,9 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate) {
         [[YYTextEffectWindow sharedWindow] showSelectionDot:_selectionView];
+        if (_selectionView.selectionRects.count>0) {
+            [self _showMenu];
+        }
     }
     
     if ([_outerDelegate respondsToSelector:_cmd]) {
@@ -3119,6 +3122,10 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     
     if ([_outerDelegate respondsToSelector:_cmd]) {
         [_outerDelegate scrollViewDidEndDecelerating:scrollView];
+    }
+    
+    if (_selectionView.selectionRects.count>0) {
+        [self _showMenu];
     }
 }
 
