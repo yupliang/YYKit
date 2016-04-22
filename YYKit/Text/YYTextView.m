@@ -613,7 +613,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
             UIMenuController *menu = [UIMenuController sharedMenuController];
             [menu setTargetRect:CGRectStandardize(rect) inView:_selectionView];
             [menu update];
-            if (!_state.showingMenu || !menu.menuVisible) {
+            if ((!_state.showingMenu || !menu.menuVisible) && rect.origin.y<self.height+self.contentOffset.y) {
                 _state.showingMenu = YES;
                 [menu setMenuVisible:YES animated:YES];
             }
