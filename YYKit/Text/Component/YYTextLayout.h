@@ -274,6 +274,7 @@ extern const CGSize YYTextContainerMaxSize;
 ///< Has border attribute
 @property (nonatomic, readonly) BOOL needDrawBorder;
 
+@property (nonatomic,assign) BOOL needCheckValidaterun;
 
 #pragma mark - Query information from text layout
 ///=============================================================================

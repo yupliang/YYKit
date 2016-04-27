@@ -230,6 +230,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     }
     [self willChangeValueForKey:@"textLayout"];
     _innerLayout = [YYTextLayout layoutWithContainer:_innerContainer text:text];
+    _innerLayout.needCheckValidaterun = self.needCheckValidaterun;
     [self didChangeValueForKey:@"textLayout"];
     CGSize size = [_innerLayout textBoundingSize];
     CGSize visibleSize = [self _getVisibleSize];
@@ -244,6 +245,11 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     _containerView.frame = (CGRect){.size = size};
     _state.showingHighlight = NO;
     self.contentSize = size;
+}
+
+- (void)setNeedCheckValidaterun:(BOOL)needCheckValidaterun{
+    _innerLayout.needCheckValidaterun = needCheckValidaterun;
+    _needCheckValidaterun = needCheckValidaterun;
 }
 
 /// Update selection view immediately.

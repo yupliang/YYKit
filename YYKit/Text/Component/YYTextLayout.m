@@ -1966,53 +1966,56 @@ fail:
     if (startLineIndex > endLineIndex) YY_SWAP(startLineIndex, endLineIndex);
     YYTextLine *startLine = _lines[startLineIndex];
     CFArrayRef runs = CTLineGetGlyphRuns(startLine.CTLine);
-    
     BOOL linehasValidateRun = NO;
-    while (!linehasValidateRun) {
-        for (NSUInteger j=0,count = CFArrayGetCount(runs);j<count;j++) {
-            CTRunRef run0 = CFArrayGetValueAtIndex(runs, j);
-            NSDictionary *runattris = (NSDictionary *)CTRunGetAttributes(run0);
-            NSLog(@"runattris %@",runattris);
-            NSString *fTCoreTextDataName = runattris[@"FTCoreTextDataName"];
-            if (fTCoreTextDataName && ![fTCoreTextDataName hasPrefix:@"_FTTopSpacingStyle"] && ![fTCoreTextDataName isEqualToString:@"_default"]) {
-                linehasValidateRun = YES;
-                break;
+    if (self.needCheckValidaterun) {
+        while (!linehasValidateRun) {
+            for (NSUInteger j=0,count = CFArrayGetCount(runs);j<count;j++) {
+                CTRunRef run0 = CFArrayGetValueAtIndex(runs, j);
+                NSDictionary *runattris = (NSDictionary *)CTRunGetAttributes(run0);
+                NSLog(@"runattris %@",runattris);
+                NSString *fTCoreTextDataName = runattris[@"FTCoreTextDataName"];
+                if (fTCoreTextDataName && ![fTCoreTextDataName hasPrefix:@"_FTTopSpacingStyle"] && ![fTCoreTextDataName isEqualToString:@"_default"]) {
+                    linehasValidateRun = YES;
+                    break;
+                }
             }
-        }
-        if (!linehasValidateRun) {
-            startLineIndex = startLineIndex + 1;
-            YYTextPosition *startPosition = [YYTextPosition positionWithOffset:range.start.offset+startLine.range.length];
-            range = [YYTextRange rangeWithStart:startPosition end:range.end];
-            if (startLineIndex>endLineIndex) {
-                return rects;
+            if (!linehasValidateRun) {
+                startLineIndex = startLineIndex + 1;
+                YYTextPosition *startPosition = [YYTextPosition positionWithOffset:range.start.offset+startLine.range.length];
+                range = [YYTextRange rangeWithStart:startPosition end:range.end];
+                if (startLineIndex>endLineIndex) {
+                    return rects;
+                }
+                startLine = _lines[startLineIndex];
+                runs = CTLineGetGlyphRuns(startLine.CTLine);
             }
-            startLine = _lines[startLineIndex];
-            runs = CTLineGetGlyphRuns(startLine.CTLine);
         }
     }
-    
+   
     YYTextLine *endLine = _lines[endLineIndex];
-    runs = CTLineGetGlyphRuns(endLine.CTLine);
-    linehasValidateRun = NO;
-    while (!linehasValidateRun) {
-        for (NSUInteger j=0,count = CFArrayGetCount(runs);j<count;j++){
-            CTRunRef run0 = CFArrayGetValueAtIndex(runs, j);
-            NSDictionary *runattris = (NSDictionary *)CTRunGetAttributes(run0);
-            NSString *fTCoreTextDataName = runattris[@"FTCoreTextDataName"];
-            if (fTCoreTextDataName && ![fTCoreTextDataName hasPrefix:@"_FTTopSpacingStyle"] && ![fTCoreTextDataName isEqualToString:@"_default"]) {
-                linehasValidateRun = YES;
-                break;
+    if (self.needCheckValidaterun) {
+        runs = CTLineGetGlyphRuns(endLine.CTLine);
+        linehasValidateRun = NO;
+        while (!linehasValidateRun) {
+            for (NSUInteger j=0,count = CFArrayGetCount(runs);j<count;j++){
+                CTRunRef run0 = CFArrayGetValueAtIndex(runs, j);
+                NSDictionary *runattris = (NSDictionary *)CTRunGetAttributes(run0);
+                NSString *fTCoreTextDataName = runattris[@"FTCoreTextDataName"];
+                if (fTCoreTextDataName && ![fTCoreTextDataName hasPrefix:@"_FTTopSpacingStyle"] && ![fTCoreTextDataName isEqualToString:@"_default"]) {
+                    linehasValidateRun = YES;
+                    break;
+                }
             }
-        }
-        if (!linehasValidateRun) {
-            endLineIndex = endLineIndex -1;
-            if (startLineIndex>endLineIndex) {
-                return rects;
+            if (!linehasValidateRun) {
+                endLineIndex = endLineIndex -1;
+                if (startLineIndex>endLineIndex) {
+                    return rects;
+                }
+                YYTextPosition *endPosition = [YYTextPosition positionWithOffset:range.end.offset-endLine.range.length];
+                range = [YYTextRange rangeWithStart:range.start end:endPosition];
+                endLine = _lines[endLineIndex];
+                runs = CTLineGetGlyphRuns(endLine.CTLine);
             }
-            YYTextPosition *endPosition = [YYTextPosition positionWithOffset:range.end.offset-endLine.range.length];
-            range = [YYTextRange rangeWithStart:range.start end:endPosition];
-            endLine = _lines[endLineIndex];
-            runs = CTLineGetGlyphRuns(endLine.CTLine);
         }
     }
     CGFloat offsetStart = [self offsetForTextPosition:range.start.offset lineIndex:startLineIndex];

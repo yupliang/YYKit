@@ -239,6 +239,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nullable, nonatomic, copy) YYTextDebugOption *debugOption;
 
+@property (nonatomic,assign) BOOL needCheckValidaterun;
 
 #pragma mark - Working with the Selection and Menu
 ///=============================================================================
