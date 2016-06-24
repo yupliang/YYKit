@@ -2554,12 +2554,13 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
         
         if (_highlight) {
             _state.showingHighlight = NO;
-//            YYTextHighlight *highlight = [self _getHighlightAtPoint:_trackingPoint range:NULL];
-//            if (highlight == _highlight) {
+            YYTextHighlight *highlight = [self _getHighlightAtPoint:_trackingPoint range:NULL];
+            if (highlight == _highlight) {
+                _state.showingHighlight = YES;
 //                [self _showHighlightAnimated:YES];
-//            } else {
+            } else {
 //                [self _hideHighlightAnimated:YES];
-//            }
+            }
             
         } else {
             _trackingRange = _selectedTextRange;

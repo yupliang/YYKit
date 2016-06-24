@@ -57,6 +57,7 @@
     textView.contentInset = UIEdgeInsetsMake(toolbar.bottom, 0, 0, 0);
     textView.scrollIndicatorInsets = textView.contentInset;
     textView.selectedRange = NSMakeRange(text.length, 0);
+    textView.editable = NO;
     [self.view insertSubview:textView belowSubview:toolbar];
     self.textView = textView;
     

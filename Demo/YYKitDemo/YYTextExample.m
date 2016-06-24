@@ -22,6 +22,16 @@
     self.titles = @[].mutableCopy;
     self.classNames = @[].mutableCopy;
     [self addCell:@"Text Attributes 1" class:@"YYTextAttributeExample"];
+    [self addCell:@"Text Attributes 1" class:@"YYTextAttributeExample"];
+    [self addCell:@"Text Attributes 1" class:@"YYTextAttributeExample"];
+    [self addCell:@"Text Attributes 1" class:@"YYTextAttributeExample"];
+    [self addCell:@"Text Attributes 1" class:@"YYTextAttributeExample"];
+    [self addCell:@"Text Attributes 1" class:@"YYTextAttributeExample"];
+    [self addCell:@"Text Attributes 1" class:@"YYTextAttributeExample"];
+    [self addCell:@"Text Attributes 1" class:@"YYTextAttributeExample"];
+    [self addCell:@"Text Attributes 1" class:@"YYTextAttributeExample"];
+    [self addCell:@"Text Attributes 1" class:@"YYTextAttributeExample"];
+    [self addCell:@"Text Attributes 1" class:@"YYTextAttributeExample"];
     [self addCell:@"Text Attributes 2" class:@"YYTextTagExample"];
     [self addCell:@"Text Attachments" class:@"YYTextAttachmentExample"];
     [self addCell:@"Text Edit" class:@"YYTextEditExample"];
@@ -33,6 +43,8 @@
     [self addCell:@"Ruby Annotation" class:@"YYTextRubyExample"];
     [self addCell:@"Async Display" class:@"YYTextAsyncExample"];
     [self.tableView reloadData];
+    self.tableView.layer.cornerRadius = 10;
+    self.tableView.layer.masksToBounds = YES;
 }
 
 - (void)addCell:(NSString *)title class:(NSString *)className {
